@@ -137,6 +137,39 @@ li:hover {
 	width: 100%;
 
 }
+
+.placemenu {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+
+	
+}
+
+.placemenu button {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: #1D6154;
+	background-color: white;
+	margin :2em 1em 2em 1em ;
+	padding: 0em 2em 0em 2em;
+	width: auto;
+	height: 40px;
+	text-align: center;
+	border-radius: 60px ;
+	border-color: #1D6154;
+}
+
+.placemenu button:hover {
+	background-color: #1D6154;
+	color: white;
+}
+
+.placemenu button:active {
+	background-color: #1D6154;
+	color: white;
+}
+
 #contact {
 	width: 50%;
 margin: auto;
