@@ -88,16 +88,29 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
+
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	cursor: pointer;
+
+}
+
+a {
+	text-decoration: none;
+	color: black;
 }
 
 li:hover {
 	color: #B1663C;
 }
+
+.jtd {
+	font-weight: bold; 
+}
+
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -219,3 +232,48 @@ footer nav ul {
 	margin: 2em
 }
 
+#formConnexion {
+	width: 50%;
+	margin: auto;
+}
+#formConnexion > * {
+	text-align: center;
+
+}
+#formConnexion h2{
+	margin-bottom: 20px;
+	text-align: center;
+}
+#formConnexion form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#formConnexion input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#formConnexion label {
+	margin: 2em 0 1em 0;
+}
+
+input[type="button"]{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+}
+
+.mdpO {
+	display: block;
+	justify-content: center;
+	text-decoration: underline;
+}

@@ -23,6 +23,7 @@ async function homePage(){
     generer(projet);
 }
 
+
 function generer(affiche) {
     for (let i = 0; i < affiche.length; i++) {
         const creaElement = document.createElement("figure");
@@ -41,7 +42,7 @@ function generer(affiche) {
 
 homePage()
 
-
+/*partie boutons filtre*/
 
 btnfilterO.addEventListener("click", async () =>{
     const projet = await fetch("http://localhost:5678/api/works").then(projet=>projet.json());
@@ -86,4 +87,8 @@ btnfilterT.addEventListener("click", async () =>{
     generer(projet)
 
 })
+
+
+/* intégration du formulaire de connexion*/
+
 
