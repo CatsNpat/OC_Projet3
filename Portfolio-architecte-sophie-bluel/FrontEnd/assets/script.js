@@ -89,6 +89,12 @@ btnfilterT.addEventListener("click", async () =>{
 })
 
 
-/* intégration du formulaire de connexion*/
+const Logue = window.sessionStorage.getItem(`token`);
+if (Logue != null){
+    document.querySelector(".login").innerText = `logout`;
+}
 
-
+document.querySelector(".login").addEventListener("click", ()=>{
+    window.sessionStorage.removeItem(`token`);
+    document.querySelector(".login").innerHTML = `<a href="formulaire.html">login</a>`;
+})

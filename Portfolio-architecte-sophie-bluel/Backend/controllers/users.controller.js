@@ -32,7 +32,8 @@ exports.login = async (req, res) => {
 	}else {
 		const valid = await bcrypt.compare(req.body.password, user.password)
 		if(!valid){
-			return res.status(401).json({ error: new Error('Not Authorized') })
+			//return res.status(401).json({ error: new Error('Not Authorized') })
+			return res.status(401).json({message: 'not authorized'})
 		}
 		return res.status(200).json({
 			userId: user.id,
