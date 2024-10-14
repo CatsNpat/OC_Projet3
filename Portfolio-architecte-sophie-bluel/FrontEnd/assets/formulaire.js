@@ -1,10 +1,11 @@
-/* intégration du formulaire de connexion*/
+
 
 const connexion = document.getElementById("connexion");
 connexion.addEventListener("click", async () =>{
     const email = document.getElementById("email").value;
     const mdp = document.getElementById("mdp").value;
     const messageC = document.querySelector(".messgConnecter");
+    
     const reponse = await fetch("http://localhost:5678/api/users/login",{
         method:"POST",
         headers:{"Content-Type":"application/json"},

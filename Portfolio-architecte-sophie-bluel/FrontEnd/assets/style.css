@@ -277,3 +277,48 @@ input[type="button"]{
 	justify-content: center;
 	text-decoration: underline;
 }
+
+
+.modalCSS {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+
+.contenuModal {
+	overflow: auto;
+	width: 800px;
+	max-width: calc(100vw-20px);
+	max-height: calc(100vh-20px);
+	padding: 20px;
+	background-color: white;
+}
+
+.taillePhotoModal {
+	width: 80px;
+	height: 80px;
+}
+
+.ajoutPhotoModal {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+}
+
+#iconetrash {
+	background-color: black;
+	width: 10px;
+	height: 10px;
+}
