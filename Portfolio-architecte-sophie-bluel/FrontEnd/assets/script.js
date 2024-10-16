@@ -27,8 +27,6 @@ btnfilterO.addEventListener("click", async () =>{
         return x.category.id ===1;
     })
 
-    document.querySelector(".gallery").innerHTML="";
-
     generer(objet)
 
 })
@@ -38,8 +36,6 @@ btnfilterA.addEventListener("click", async () =>{
     const objet = projet.filter(function(x){
         return x.category.id ===2;
     })
-
-    document.querySelector(".gallery").innerHTML="";
 
     generer(objet)
 
@@ -51,8 +47,6 @@ btnfilterH.addEventListener("click", async () =>{
         return x.category.id ===3;
     })
 
-    document.querySelector(".gallery").innerHTML="";
-
     generer(objet)
 
 })
@@ -60,8 +54,6 @@ btnfilterH.addEventListener("click", async () =>{
 btnfilterT.addEventListener("click", async () =>{
     const projet = await fetch("http://localhost:5678/api/works").then(projet=>projet.json());
    
-    document.querySelector(".gallery").innerHTML="";
-
     generer(projet)
 
 })
@@ -83,12 +75,13 @@ if (Logue != null){
      })
 
 }
-    
+
 document.querySelector(".login").addEventListener("click", ()=>{
-    window.sessionStorage.removeItem(`token`);
-    Logue = null;
-    document.querySelector(".login").innerHTML = `<a href="formulaire.html">login</a>`;
-    document.querySelector(".placemenu").style.visibility = "visible";
-    Modifier();
-    homePage();
-})
+    if (Logue != null){
+        window.sessionStorage.removeItem(`token`);
+        Logue = null;
+        document.querySelector(".login").innerHTML = `<a href="formulaire.html">login</a>`;
+        document.querySelector(".placemenu").style.visibility = "visible";
+        Modifier();
+        homePage();
+}})

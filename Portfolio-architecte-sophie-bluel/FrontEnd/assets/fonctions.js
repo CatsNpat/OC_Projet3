@@ -6,6 +6,7 @@ async function homePage(){
 
 
 function generer(affiche) {
+    document.querySelector(".gallery").innerHTML="";
     for (let i = 0; i < affiche.length; i++) {
         const creaElement = document.createElement("figure");
         const imageElement = document.createElement("img");
@@ -28,20 +29,26 @@ function Modifier (){
     const placeModif = document.querySelector(".titrePortfolio");
 
     if (Logue != null){
+       
+        const btnModifier = document.createElement("a");
+        btnModifier.href = "#modal";
+        btnModifier.id = "btnModifier";
+
         const iconBtnModif = document.createElement("i");
         iconBtnModif.classList.add("fa-solid");
         iconBtnModif.classList.add("fa-pen-to-square");
         iconBtnModif.id = "iconeBtnModif";
-        placeModif.appendChild(iconBtnModif);
 
-        const btnModifier = document.createElement("a");
-        btnModifier.innerText = `Modifier`;
-        btnModifier.href = "#modal";
-        btnModifier.id = "btnModifier";
+        const nomBtnModif = document.createElement("p");
+        nomBtnModif.innerHTML = `&nbsp;modifier`;
+        nomBtnModif.id = "nomBtnModif";
+
+        btnModifier.appendChild(iconBtnModif);
+        btnModifier.appendChild(nomBtnModif);
         placeModif.appendChild(btnModifier);
+
     } else {
         try {
-            placeModif.removeChild(document.getElementById ("iconeBtnModif"));
             placeModif.removeChild(document.getElementById ("btnModifier"));
         } catch {}
         
@@ -65,13 +72,13 @@ function genModal(affiche) {
         imageElement.classList.add ("taillePhotoModal");
 
         const boiteImage = document.createElement("div");
-        const lienSuppr = document.createElement("a");
-        lienSuppr.href = "javaScript:void(0)";
+        const lienSuppr = document.createElement("button");
+        lienSuppr.classList.add("boiteSuppr");
         lienSuppr.id = "lienSupression_"+ affiche[i].id;
         lienSuppr.addEventListener("click", () => deletePhoto(affiche[i].id));
 
         const icontrash = document.createElement("i");
-        icontrash.classList.add("fa-regular");
+        icontrash.classList.add("fa-solid");
         icontrash.classList.add("fa-trash-can");
         icontrash.id = "iconetrash";
         lienSuppr.appendChild(icontrash);
@@ -92,7 +99,6 @@ async function deletePhoto (id) {
         })
     photosModal.innerHTML ="";
     sde();
-    document.querySelector(".gallery").innerHTML="";
     homePage();
 }
 
@@ -100,25 +106,33 @@ async function deletePhoto (id) {
 function CreaModal() {
     const gju = document.querySelector (".contenuModal");
 
-    const titreModal = document.createElement("h2");
-    titreModal.innerText = `Galerie photos`
+    const titreModal = document.createElement("h3");
+    titreModal.innerText = `Galerie photos`;
+    titreModal.classList.add("titreModal");
 
     const fermeCroix = document.createElement ("button");
+    fermeCroix.classList.add("fermeCroix");
     fermeCroix.innerText = `X`;
 
     const photosModal = document.createElement("div");
     photosModal.id ="photosModal";
 
+    titreModal.appendChild(fermeCroix);
+
     sde()
+
+    const boiteAjoutPhoto = document.createElement("div");
+    boiteAjoutPhoto.classList.add("boiteAjoutPhoto");
 
     const ajoutPhoto = document.createElement("button");
     ajoutPhoto.innerText = `Ajouter une photo`;
     ajoutPhoto.classList.add("ajoutPhotoModal");
 
+    boiteAjoutPhoto.appendChild(ajoutPhoto);
+
     gju.appendChild(titreModal);
-    gju.appendChild(fermeCroix);
     gju.appendChild(photosModal);
-    gju.appendChild(ajoutPhoto);
+    gju.appendChild(boiteAjoutPhoto);
 
     fermeCroix.addEventListener("click",() => {
         const mld = document.querySelector("#modal");

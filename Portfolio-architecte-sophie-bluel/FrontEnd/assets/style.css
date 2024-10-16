@@ -135,9 +135,24 @@ li:hover {
 	margin-bottom: 0.5em;
 }
 #portfolio h2 {
+	display : flex;
+	justify-content: center;
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+.titrePortfolio {
+	display: flex;
+	justify-content: flex-end;
+	position: relative;
+	bottom: 50px;
+	right: 350px;
+}
+
+#btnModifier {
+	display: flex;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -294,16 +309,33 @@ input[type="button"]{
 
 .contenuModal {
 	overflow: auto;
-	width: 800px;
+	width: 600px;
 	max-width: calc(100vw-20px);
 	max-height: calc(100vh-20px);
-	padding: 20px;
+	padding: 50px;
+	background-color: white;
+	border-radius: 10px;
+}
+
+.titreModal {
+	display: flex;
+	justify-content: center;
+	font-size: 24px;
+}
+
+.fermeCroix {
+	position: relative;
+	left: 230px;
+	bottom: 30px;
+	border: none;
 	background-color: white;
 }
 
 .taillePhotoModal {
 	width: 80px;
-	height: 80px;
+	height: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .ajoutPhotoModal {
@@ -313,20 +345,38 @@ input[type="button"]{
 	background-color: #1D6154;
 	margin : 2em auto ;
 	width: 180px;
-	text-align: center;
 	border-radius: 60px ;
+	display: flex;
+	justify-content: center;
+	border: none;
+	padding: 10px;
+	
+}
+
+.boiteSuppr {
+	position: relative;
+	left : 75px;
+	bottom : 95px;
+	width: 20px;
+	height: 20px;
+	background-color: black;
+	border: none;
+	border-radius: 5px;
 }
 
 #iconetrash {
 	position: relative;
-	left : 85px;
-	bottom : 70px;
-	width: 10px;
-	height: 10px;
+	bottom: 1px;
+	color: white;
 }
 
 #photosModal {
 	display: flex;
-	justify-content: space-around;
 	flex-wrap: wrap;
+	padding: 30px;
+}
+
+.boiteAjoutPhoto {
+	display: flex;
+	border-top: 1px grey solid;
 }
