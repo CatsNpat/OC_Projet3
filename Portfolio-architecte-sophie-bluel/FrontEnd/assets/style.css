@@ -318,7 +318,15 @@ input[type="button"]{
 }
 
 #iconetrash {
-	background-color: black;
+	position: relative;
+	left : 85px;
+	bottom : 70px;
 	width: 10px;
 	height: 10px;
+}
+
+#photosModal {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
 }
