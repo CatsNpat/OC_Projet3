@@ -154,4 +154,12 @@ function CreaModal() {
         gju.innerHTML ="";
         location.assign("index.html");
     })
+
+    document.getElementById("modal").addEventListener("click",(event) => {
+        if (event.target === document.getElementById("modal")){
+        const mld = document.querySelector("#modal");
+        mld.style.display = "none";
+        gju.innerHTML ="";
+        location.assign("index.html");
+    }})
 }
