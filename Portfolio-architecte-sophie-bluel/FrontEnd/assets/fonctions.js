@@ -9,6 +9,7 @@ function generer(affiche) {
     document.querySelector(".gallery").innerHTML="";
     for (let i = 0; i < affiche.length; i++) {
         const creaElement = document.createElement("figure");
+        creaElement.id = "creaElement_"+ affiche[i].id;
         const imageElement = document.createElement("img");
         imageElement.src = affiche[i].imageUrl;
         const titreElement = document.createElement("figcaption");
@@ -72,9 +73,9 @@ function genModal(affiche) {
         imageElement.classList.add ("taillePhotoModal");
 
         const boiteImage = document.createElement("div");
+        boiteImage.id = "boiteImage_"+ affiche[i].id;
         const lienSuppr = document.createElement("button");
         lienSuppr.classList.add("boiteSuppr");
-        lienSuppr.id = "lienSupression_"+ affiche[i].id;
         lienSuppr.addEventListener("click", () => deletePhoto(affiche[i].id));
 
         const icontrash = document.createElement("i");
@@ -86,20 +87,29 @@ function genModal(affiche) {
         boiteImage.appendChild(imageElement);
        
         photosModal.appendChild(boiteImage);
+
+
     }
 }
 
 async function deletePhoto (id) {
+    const rgu = document.getElementById("reponFaux");
+    rgu.innerText = "";
+
     const thd = await fetch ("http://localhost:5678/api/works/"+ id,{
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${Logue}`
         }
-        })
-    photosModal.innerHTML ="";
-    sde();
-    homePage();
+        }).then(function (reponse) {
+            if (!reponse.ok) {
+              rgu.innerText = `erreur HTTP! statut: ${reponse.status}`;
+            }
+          });
+    photosModal.removeChild(document.getElementById("boiteImage_"+ id));
+    document.querySelector(".gallery").removeChild(document.getElementById("creaElement_"+ id));
+
 }
 
 
@@ -133,6 +143,10 @@ function CreaModal() {
     gju.appendChild(titreModal);
     gju.appendChild(photosModal);
     gju.appendChild(boiteAjoutPhoto);
+
+    const reponFaux = document.createElement("p");
+    reponFaux.id = "reponFaux";
+    gju.appendChild(reponFaux);
 
     fermeCroix.addEventListener("click",() => {
         const mld = document.querySelector("#modal");
