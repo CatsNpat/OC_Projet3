@@ -92,6 +92,8 @@ function genModal(affiche) {
     }
 }
 
+/* suppression d'une photo*/
+
 async function deletePhoto (id) {
     const rgu = document.getElementById("reponFaux");
     rgu.innerText = "";
@@ -111,6 +113,88 @@ async function deletePhoto (id) {
     document.querySelector(".gallery").removeChild(document.getElementById("creaElement_"+ id));
 
 }
+
+
+async function cat (Categorie) {
+    const cCategorie = await fetch("http://localhost:5678/api/categories").then(cCategorie=>cCategorie.json());
+    for (let i = 0; i < cCategorie.length; i++) {
+        const Choix = document.createElement("option");
+        Choix.value = cCategorie[i].id;
+        Choix.innerText = `${cCategorie[i].name}`;
+
+        Categorie.appendChild(Choix);
+    }
+}
+
+function modalAjoutPhoto() {
+    const hki = document.querySelector (".contenuModal");
+
+    const titreModalPhoto = document.createElement("h3");
+    titreModalPhoto.innerText = `Ajout photo`;
+    titreModalPhoto.classList.add("titreModal");
+
+    const fermeCroix = document.createElement ("button");
+    fermeCroix.classList.add("fermeCroix");
+    fermeCroix.innerText = `X`;
+
+    const retourArriere = document.createElement ("button");
+    retourArriere.classList.add("retourArriere");
+    retourArriere.innerText = `<-`;
+    
+    titreModalPhoto.appendChild(fermeCroix);
+    titreModalPhoto.appendChild(retourArriere);
+
+    hki.appendChild(titreModalPhoto);
+
+    const formA = document.createElement ("section");
+    formA.id = "formA";
+    const contenuForm = document.createElement ("form");
+    contenuForm.method = "";
+    contenuForm.action = "";
+
+    const photoPlus = document.createElement ("input");
+    photoPlus.type = "file";
+
+    const labelTitre = document.createElement ("label");
+    labelTitre.for = "text";
+    labelTitre.innerText = `Titre`;
+
+    const titreForm = document.createElement ("input");
+    titreForm.type = "text";
+    titreForm.name = "text";
+    titreForm.id = "text";
+
+    const labelCategorie = document.createElement ("label");
+    labelCategorie.for = "categorie";
+    labelCategorie.innerText = `Catégorie`;
+
+    const Categorie = document.createElement ("select");
+    Categorie.name = "categorie";
+    Categorie.id = "categorie";
+
+
+    cat(Categorie);
+
+    const boiteB = document.createElement("div");
+    boiteB.classList.add ="boiteB";
+    const buttonValider = document.createElement ("input");
+    buttonValider.type = "submit";
+    buttonValider.value = `Valider`;
+
+    boiteB.appendChild(buttonValider);
+
+    contenuForm.appendChild(photoPlus);
+    labelTitre.appendChild(titreForm);
+    contenuForm.appendChild(labelTitre);
+    labelCategorie.appendChild(Categorie);
+    contenuForm.appendChild(labelCategorie);
+    contenuForm.appendChild(boiteB);
+    formA.appendChild(contenuForm);
+
+    hki.appendChild(formA);
+    
+}
+
 
 
 function CreaModal() {
@@ -162,4 +246,10 @@ function CreaModal() {
         gju.innerHTML ="";
         location.assign("index.html");
     }})
+
+    document.querySelector(".ajoutPhotoModal").addEventListener("click",() => {
+        gju.innerHTML = "";
+        modalAjoutPhoto();
+
+    })
 }
