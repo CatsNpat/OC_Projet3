@@ -389,3 +389,80 @@ input[type="button"]{
 	color: chocolate;
 	margin-top: 20px;
 }
+
+.retourArriere {
+	display: flex;
+	background-color: white;
+	border: none;
+	position: relative;
+	right: 375px;
+	bottom: 25px;
+}
+
+.boitePhotoPlus {
+	display: flex;
+	flex-direction: column;
+	background-color: rgba(210, 224, 233, 0.8);
+	align-items: center;
+}
+
+#iconeBoitePhotoPlus {
+	display: flex;
+	font-size: 200px;
+	color: rgba(151, 184, 205, 0.8);
+}
+
+input[type=file]::file-selector-button {
+	visibility: hidden;
+}
+
+#labelPhotoPlus {
+	border-radius: 10px;
+	text-align: center;
+	color: rgba(51, 113, 153, 0.8);
+	padding: 10px;
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	background-color: rgba(151, 184, 205, 0.8);
+}
+
+.pouet {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+
+.pouetD {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#categorie {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	background-color: white;
+}
+
+.boiteB {
+	display: flex;
+	justify-content: center;
+	border-top: 1px grey solid;
+	margin: 40px;
+}
+
+#buttonValider {
+	display: flex;
+	justify-content: center;
+	background-color: grey;
+	margin: 20px 0px 20px 0px;
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}

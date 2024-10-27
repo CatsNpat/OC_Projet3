@@ -140,7 +140,8 @@ function modalAjoutPhoto() {
 
     const retourArriere = document.createElement ("button");
     retourArriere.classList.add("retourArriere");
-    retourArriere.innerText = `<-`;
+    retourArriere.classList.add("fa-solid");
+    retourArriere.classList.add("fa-arrow-left");
     
     titreModalPhoto.appendChild(fermeCroix);
     titreModalPhoto.appendChild(retourArriere);
@@ -153,32 +154,54 @@ function modalAjoutPhoto() {
     contenuForm.method = "";
     contenuForm.action = "";
 
+    const boitePhotoPlus = document.createElement("div");
+    boitePhotoPlus.classList.add("boitePhotoPlus");
+
+   const iconeBoitePhotoPlus = document.createElement("i");
+   iconeBoitePhotoPlus.classList.add("fa-regular");
+   iconeBoitePhotoPlus.classList.add("fa-image");
+   iconeBoitePhotoPlus.id = "iconeBoitePhotoPlus";
+
+   const labelPhotoPlus = document.createElement ("label");
+   labelPhotoPlus.for = "photoPlus";
+   labelPhotoPlus.innerText = `+ Ajouter photo`;
+   labelPhotoPlus.id = "labelPhotoPlus";
+
     const photoPlus = document.createElement ("input");
     photoPlus.type = "file";
     photoPlus.id = "photoPlus";
+    
+    labelPhotoPlus.appendChild(photoPlus);
+    boitePhotoPlus.appendChild(iconeBoitePhotoPlus);
+    boitePhotoPlus.appendChild(labelPhotoPlus);
 
     const labelTitre = document.createElement ("label");
     labelTitre.for = "text";
     labelTitre.innerText = `Titre`;
+    labelTitre.classList.add("pouet");
 
     const titreForm = document.createElement ("input");
     titreForm.type = "text";
     titreForm.name = "text";
     titreForm.id = "text";
+    titreForm.classList.add("pouetD");
 
     const labelCategorie = document.createElement ("label");
     labelCategorie.for = "categorie";
     labelCategorie.innerText = `Catégorie`;
+    labelCategorie.classList.add("pouet");
 
     const Categorie = document.createElement ("select");
+    Categorie.innerHTML = "";
     Categorie.name = "categorie";
     Categorie.id = "categorie";
+    Categorie.classList.add("pouetD");
 
 
     cat(Categorie);
 
     const boiteB = document.createElement("div");
-    boiteB.classList.add ="boiteB";
+    boiteB.classList.add("boiteB");
     const buttonValider = document.createElement ("input");
     buttonValider.type = "submit";
     buttonValider.value = `Valider`;
@@ -186,7 +209,7 @@ function modalAjoutPhoto() {
 
     boiteB.appendChild(buttonValider);
 
-    contenuForm.appendChild(photoPlus);
+    contenuForm.appendChild(boitePhotoPlus);
     labelTitre.appendChild(titreForm);
     contenuForm.appendChild(labelTitre);
     labelCategorie.appendChild(Categorie);
@@ -219,23 +242,35 @@ function modalAjoutPhoto() {
             method:"POST",
             headers:{"Authorization": `Bearer ${Logue}`},
             body: formData
-            }).then(function(repRep){
+            }).then( async function(repRep){
                 if(!repRep.ok){
                     moi.innerText = `erreur HTTP! statut: ${repRep.status}`;
                 }else{
                     const mld = document.querySelector("#modal");
                     mld.style.display = "none";
                     hki.innerHTML ="";
-                    location.assign("index.html");
+                    const photoJson = await repRep.json();
+                    const creaElement = document.createElement("figure");
+                    creaElement.id = "creaElement_"+ photoJson.id;
+                    const imageElement = document.createElement("img");
+                    imageElement.src = photoJson.imageUrl;
+                    const titreElement = document.createElement("figcaption");
+                    titreElement.innerText = photoJson.title;
+        
+                    creaElement.appendChild(imageElement);
+                    creaElement.appendChild(titreElement);
+        
+                    document.querySelector(".gallery").appendChild(creaElement);
                 }
             });
-        })
+
+        });
+
 
     fermeCroix.addEventListener("click",() => {
         const mld = document.querySelector("#modal");
         mld.style.display = "none";
         hki.innerHTML ="";
-        location.assign("index.html");
     })
     
     document.querySelector(".retourArriere").addEventListener("click", () =>{
@@ -244,7 +279,7 @@ function modalAjoutPhoto() {
     })
 }
 
-/*création de la modal*/
+/*création de la modale*/
 
 function CreaModal() {
     const gju = document.querySelector (".contenuModal");
@@ -285,7 +320,6 @@ function CreaModal() {
         const mld = document.querySelector("#modal");
         mld.style.display = "none";
         gju.innerHTML ="";
-        location.assign("index.html");
     })
 
     document.getElementById("modal").addEventListener("click",(event) => {
@@ -293,7 +327,6 @@ function CreaModal() {
         const mld = document.querySelector("#modal");
         mld.style.display = "none";
         gju.innerHTML ="";
-        location.assign("index.html");
     }})
 
     document.querySelector(".ajoutPhotoModal").addEventListener("click",() => {
