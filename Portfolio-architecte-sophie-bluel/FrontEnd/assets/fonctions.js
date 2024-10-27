@@ -58,7 +58,7 @@ function Modifier (){
 }
 
 
-/*création modale*/
+/*création de la galerie photo de la modale*/
 
 
 async function sde () {
@@ -114,6 +114,7 @@ async function deletePhoto (id) {
 
 }
 
+/*création de la partie Ajout photo de la modale*/
 
 async function cat (Categorie) {
     const cCategorie = await fetch("http://localhost:5678/api/categories").then(cCategorie=>cCategorie.json());
@@ -154,6 +155,7 @@ function modalAjoutPhoto() {
 
     const photoPlus = document.createElement ("input");
     photoPlus.type = "file";
+    photoPlus.id = "photoPlus";
 
     const labelTitre = document.createElement ("label");
     labelTitre.for = "text";
@@ -180,6 +182,7 @@ function modalAjoutPhoto() {
     const buttonValider = document.createElement ("input");
     buttonValider.type = "submit";
     buttonValider.value = `Valider`;
+    buttonValider.id = "buttonValider";
 
     boiteB.appendChild(buttonValider);
 
@@ -192,10 +195,56 @@ function modalAjoutPhoto() {
     formA.appendChild(contenuForm);
 
     hki.appendChild(formA);
+
+    const messFaux = document.createElement("p");
+    messFaux.id = "messFaux";
+    hki.appendChild(messFaux);
+
+
+    const ajout = document.getElementById("buttonValider");
+    ajout.addEventListener("click",async (event) => {
+        event.preventDefault();
+        const moi = document.getElementById("messFaux");
+            moi.innerText = "";
+        const imagePlus = document.getElementById("photoPlus");
+        const imageTitre = document.getElementById("text").value;
+        const imageCategorie = document.getElementById("categorie").value;
+
+        const formData = new FormData ();
+        formData.append("image",imagePlus.files[0]);
+        formData.append("title", imageTitre);
+        formData.append("category", imageCategorie);
+
+        const reponse = await fetch ("http://localhost:5678/api/works",{
+            method:"POST",
+            headers:{"Authorization": `Bearer ${Logue}`},
+            body: formData
+            }).then(function(repRep){
+                if(!repRep.ok){
+                    moi.innerText = `erreur HTTP! statut: ${repRep.status}`;
+                }else{
+                    const mld = document.querySelector("#modal");
+                    mld.style.display = "none";
+                    hki.innerHTML ="";
+                    location.assign("index.html");
+                }
+            });
+        })
+
+    fermeCroix.addEventListener("click",() => {
+        const mld = document.querySelector("#modal");
+        mld.style.display = "none";
+        hki.innerHTML ="";
+        location.assign("index.html");
+    })
     
+    document.querySelector(".retourArriere").addEventListener("click", () =>{
+        hki.innerHTML="";
+        CreaModal()
+    })
 }
 
-
+/*création de la modal*/
 
 function CreaModal() {
     const gju = document.querySelector (".contenuModal");
