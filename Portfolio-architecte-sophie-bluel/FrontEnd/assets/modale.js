@@ -46,7 +46,7 @@ async function deletePhoto (id) {
         }
         }).then(function (reponse) {
             if (!reponse.ok) {
-              rgu.innerText = `erreur HTTP! statut: ${reponse.status}`;
+              rgu.innerText = `Erreur: ${reponse.status}`;
             }
           });
     photosModal.removeChild(document.getElementById("boiteImage_"+ id));
@@ -91,8 +91,7 @@ function modalAjoutPhoto() {
     const formA = document.createElement ("section");
     formA.id = "formA";
     const contenuForm = document.createElement ("form");
-    contenuForm.method = "";
-    contenuForm.action = "";
+    contenuForm.action = "javaScript:void(0)";
 
     const boitePhotoPlus = document.createElement("div");
     boitePhotoPlus.classList.add("boitePhotoPlus");
@@ -110,16 +109,22 @@ function modalAjoutPhoto() {
     const photoPlus = document.createElement ("input");
     photoPlus.type = "file";
     photoPlus.id = "photoPlus";
+    photoPlus.innerText = ``;
     photoPlus.accept = "image/png, image/jpeg";
 
     const plouet = document.createElement("img");
     plouet.classList.add("plouet");
     plouet.style.display ="none";
     boitePhotoPlus.appendChild(plouet);
+
+    const Precision = document.createElement("p");
+    Precision.innerText = `jpg.png = 4Mo max.`;
+    Precision.classList.add("Precision");
     
     labelPhotoPlus.appendChild(photoPlus);
     boitePhotoPlus.appendChild(iconeBoitePhotoPlus);
     boitePhotoPlus.appendChild(labelPhotoPlus);
+    boitePhotoPlus.appendChild(Precision);
 
     const labelTitre = document.createElement ("label");
     labelTitre.for = "text";
@@ -138,10 +143,14 @@ function modalAjoutPhoto() {
     labelCategorie.classList.add("pouet");
 
     const Categorie = document.createElement ("select");
-    Categorie.innerHTML = "";
     Categorie.name = "categorie";
     Categorie.id = "categorie";
     Categorie.classList.add("pouetD");
+
+    const CategorieUne = document.createElement ("option");
+    CategorieUne.innerText = "";
+    CategorieUne.classList.add("pouetD");
+    CategorieUne.attributes = "selected";
 
 
     cat(Categorie);
@@ -158,6 +167,7 @@ function modalAjoutPhoto() {
     contenuForm.appendChild(boitePhotoPlus);
     labelTitre.appendChild(titreForm);
     contenuForm.appendChild(labelTitre);
+    Categorie.appendChild(CategorieUne);
     labelCategorie.appendChild(Categorie);
     contenuForm.appendChild(labelCategorie);
     contenuForm.appendChild(boiteB);
@@ -174,6 +184,7 @@ function modalAjoutPhoto() {
         plouet.style.display ="flex";
         iconeBoitePhotoPlus.style.display = "none";
         labelPhotoPlus.style.display = "none";
+        Precision.style.display = "none";
         buttonValider.style.backgroundColor = "#1D6154";
 
 
@@ -195,13 +206,29 @@ function modalAjoutPhoto() {
         formData.append("title", imageTitre);
         formData.append("category", imageCategorie);
 
+        if ((imagePlus.files[0].type === "image/jpeg" || imagePlus.files[0].type === "image/png") && imagePlus.files[0].size <= 4000000) {
+
         const reponse = await fetch ("http://localhost:5678/api/works",{
             method:"POST",
             headers:{"Authorization": `Bearer ${Logue}`},
             body: formData
             }).then( async function(repRep){
                 if(!repRep.ok){
-                    moi.innerText = `erreur HTTP! statut: ${repRep.status}`;
+                    switch (repRep.status) {
+                        case 400:
+                            moi.innerText = `Erreur : un des champs est manquant ou invalide`;
+                            break;
+                        case 401:
+                            moi.innerText = `Erreur : utilisateur non autorisé`;
+                            break;
+                        case 500:
+                            moi.innerText = `Erreur innatendue`;
+                            break;
+                        default :
+                            moi.innerText = `Erreur inconnue`;
+                            break;
+                    }
+                    
                 }else{
                     const mld = document.querySelector("#modal");
                     mld.style.display = "none";
@@ -220,8 +247,11 @@ function modalAjoutPhoto() {
                     document.querySelector(".gallery").appendChild(creaElement);
                 }
             });
+        }else {
+            moi.innerText = `Erreur : format d'image invalide / la taille de l'image est supérieure à 4Mo`;
+        }
 
-        });
+    });
 
 
     fermeCroix.addEventListener("click",() => {

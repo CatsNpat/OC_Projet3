@@ -310,8 +310,6 @@ input[type="button"]{
 .contenuModal {
 	overflow: auto;
 	width: 600px;
-	max-width: calc(100vw-20px);
-	max-height: calc(100vh-20px);
 	padding: 50px;
 	background-color: white;
 	border-radius: 10px;
@@ -414,17 +412,30 @@ input[type="button"]{
 
 input[type=file]::file-selector-button {
 	visibility: hidden;
+
+}
+
+#photoPlus {
+	opacity: 0;
+	height: 1px;
 }
 
 #labelPhotoPlus {
 	border-radius: 10px;
 	text-align: center;
+	font-size: 20.8px;
 	color: rgba(51, 113, 153, 0.8);
 	padding: 10px;
 	margin-bottom: 10px;
 	display: flex;
 	flex-direction: column;
 	background-color: rgba(151, 184, 205, 0.8);
+}
+
+.Precision {
+	display: flex;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 .pouet {

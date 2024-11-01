@@ -80,8 +80,6 @@ document.querySelector(".login").addEventListener("click", ()=>{
     if (Logue != null){
         window.sessionStorage.removeItem(`token`);
         Logue = null;
-        document.querySelector(".login").innerHTML = `<a href="formulaire.html">login</a>`;
-        document.querySelector(".placemenu").style.visibility = "visible";
-        Modifier();
-        homePage();
+        location.assign("index.html");
+
 }})
