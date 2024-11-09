@@ -193,10 +193,10 @@ li:hover {
 	color: white;
 }
 
-.placemenu button:active {
+/* .placemenu button:active {
 	background-color: #1D6154;
 	color: white;
-}
+} */
 
 #contact {
 	width: 50%;
@@ -464,7 +464,7 @@ input[type=file]::file-selector-button {
 	display: flex;
 	justify-content: center;
 	border-top: 1px grey solid;
-	margin: 40px;
+	margin-top: 40px;
 }
 
 #buttonValider {
@@ -482,4 +482,15 @@ input[type=file]::file-selector-button {
 	display: flex;
 	width: auto;
 	height: 225px;
+}
+
+.footerFormulaire {
+	height : 400px;
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.footerFormulaire nav {
+	display: flex;
+	align-items: flex-end;
 }

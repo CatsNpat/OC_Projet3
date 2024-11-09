@@ -2,6 +2,8 @@
 
 const btnfilterT = document.createElement("button");
 btnfilterT.innerText = `Tous`;
+btnfilterT.style.backgroundColor = "#1D6154";
+btnfilterT.style.color = "#FFFFFF";
 const btnfilterO = document.createElement("button");
 btnfilterO.innerText = `Objets`;
 const btnfilterA = document.createElement("button");
@@ -21,6 +23,7 @@ homePage()
 
 /*partie boutons filtre*/
 
+
 btnfilterO.addEventListener("click", async () =>{
     const projet = await fetch("http://localhost:5678/api/works").then(projet=>projet.json());
     const objet = projet.filter(function(x){
@@ -28,6 +31,7 @@ btnfilterO.addEventListener("click", async () =>{
     })
 
     generer(objet)
+    CouleurBouton(btnfilterO)
 
 })
 
@@ -38,6 +42,7 @@ btnfilterA.addEventListener("click", async () =>{
     })
 
     generer(objet)
+    CouleurBouton(btnfilterA)
 
 })
 
@@ -48,6 +53,7 @@ btnfilterH.addEventListener("click", async () =>{
     })
 
     generer(objet)
+    CouleurBouton(btnfilterH)
 
 })
 
@@ -55,6 +61,7 @@ btnfilterT.addEventListener("click", async () =>{
     const projet = await fetch("http://localhost:5678/api/works").then(projet=>projet.json());
    
     generer(projet)
+    CouleurBouton(btnfilterT)
 
 })
 

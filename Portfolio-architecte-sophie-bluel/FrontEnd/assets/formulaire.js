@@ -10,15 +10,25 @@ connexion.addEventListener("click", async () =>{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:`{"email": "${email}","password": "${mdp}"}`
-        }).then(reponse=>reponse.json());
-
-    messageC.innerText =``;
-    
-    if (reponse.message){
-        messageC.innerText =`Il y a une erreur : ${reponse.message}`;
-    } else {
-        window.sessionStorage.setItem("token",`${reponse.token}`);
-        location.assign("index.html")
-    }
+        }).then(async function(repo){
+                messageC.innerText =``;
+                if(!repo.ok){
+                    switch (repo.status) {
+                        case 401:
+                            messageC.innerText =`Il y a une erreur : mot de passe incorrect`;
+                            break;
+                        case 404:
+                            messageC.innerText =`Il y a une erreur : identifiant incorrect`;
+                            break;
+                        default :
+                            messageC.innerText = `Erreur inconnue`;
+                            break;
+                    }
+                }else {
+                    repo = await repo.json();
+                    window.sessionStorage.setItem("token",`${repo.token}`);
+                    location.assign("index.html")
+                }
+            });
 })
 

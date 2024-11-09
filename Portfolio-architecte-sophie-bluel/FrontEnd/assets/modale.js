@@ -76,7 +76,8 @@ function modalAjoutPhoto() {
 
     const fermeCroix = document.createElement ("button");
     fermeCroix.classList.add("fermeCroix");
-    fermeCroix.innerText = `X`;
+    fermeCroix.classList.add("fa-solid");
+    fermeCroix.classList.add("fa-xmark");
 
     const retourArriere = document.createElement ("button");
     retourArriere.classList.add("retourArriere");
@@ -118,7 +119,7 @@ function modalAjoutPhoto() {
     boitePhotoPlus.appendChild(plouet);
 
     const Precision = document.createElement("p");
-    Precision.innerText = `jpg.png = 4Mo max.`;
+    Precision.innerText = `jpg, png : 4mo max.`;
     Precision.classList.add("Precision");
     
     labelPhotoPlus.appendChild(photoPlus);
@@ -206,49 +207,56 @@ function modalAjoutPhoto() {
         formData.append("title", imageTitre);
         formData.append("category", imageCategorie);
 
-        if ((imagePlus.files[0].type === "image/jpeg" || imagePlus.files[0].type === "image/png") && imagePlus.files[0].size <= 4000000) {
-
-        const reponse = await fetch ("http://localhost:5678/api/works",{
-            method:"POST",
-            headers:{"Authorization": `Bearer ${Logue}`},
-            body: formData
-            }).then( async function(repRep){
-                if(!repRep.ok){
-                    switch (repRep.status) {
-                        case 400:
-                            moi.innerText = `Erreur : un des champs est manquant ou invalide`;
-                            break;
-                        case 401:
-                            moi.innerText = `Erreur : utilisateur non autorisé`;
-                            break;
-                        case 500:
-                            moi.innerText = `Erreur innatendue`;
-                            break;
-                        default :
-                            moi.innerText = `Erreur inconnue`;
-                            break;
-                    }
-                    
-                }else{
-                    const mld = document.querySelector("#modal");
-                    mld.style.display = "none";
-                    hki.innerHTML ="";
-                    const photoJson = await repRep.json();
-                    const creaElement = document.createElement("figure");
-                    creaElement.id = "creaElement_"+ photoJson.id;
-                    const imageElement = document.createElement("img");
-                    imageElement.src = photoJson.imageUrl;
-                    const titreElement = document.createElement("figcaption");
-                    titreElement.innerText = photoJson.title;
-        
-                    creaElement.appendChild(imageElement);
-                    creaElement.appendChild(titreElement);
-        
-                    document.querySelector(".gallery").appendChild(creaElement);
-                }
-            });
-        }else {
+        if ((imagePlus.files[0].type !== "image/jpeg" && imagePlus.files[0].type !== "image/png") || imagePlus.files[0].size > 4000000) {
             moi.innerText = `Erreur : format d'image invalide / la taille de l'image est supérieure à 4Mo`;
+        }else{
+            if(!titreForm.value){
+                moi.innerText = `Erreur : il manque un titre`;
+            }else{
+                if(CategorieUne.selected){
+                    moi.innerText = `Erreur : il faut choisir une catégorie`; 
+                }else{
+                    const reponse = await fetch ("http://localhost:5678/api/works",{
+                        method:"POST",
+                        headers:{"Authorization": `Bearer ${Logue}`},
+                        body: formData
+                        }).then( async function(repRep){
+                            if(!repRep.ok){
+                                switch (repRep.status) {
+                                    case 400:
+                                        moi.innerText = `Erreur : un des champs est manquant ou invalide`;
+                                        break;
+                                    case 401:
+                                        moi.innerText = `Erreur : utilisateur non autorisé`;
+                                        break;
+                                    case 500:
+                                        moi.innerText = `Erreur innatendue`;
+                                        break;
+                                    default :
+                                        moi.innerText = `Erreur inconnue`;
+                                        break;
+                                }
+                                
+                            }else{
+                                const mld = document.querySelector("#modal");
+                                mld.style.display = "none";
+                                hki.innerHTML ="";
+                                const photoJson = await repRep.json();
+                                const creaElement = document.createElement("figure");
+                                creaElement.id = "creaElement_"+ photoJson.id;
+                                const imageElement = document.createElement("img");
+                                imageElement.src = photoJson.imageUrl;
+                                const titreElement = document.createElement("figcaption");
+                                titreElement.innerText = photoJson.title;
+                    
+                                creaElement.appendChild(imageElement);
+                                creaElement.appendChild(titreElement);
+                    
+                                document.querySelector(".gallery").appendChild(creaElement);
+                            }
+                        });
+                }
+            }
         }
 
     });
@@ -279,7 +287,8 @@ function CreaModal() {
 
     const fermeCroix = document.createElement ("button");
     fermeCroix.classList.add("fermeCroix");
-    fermeCroix.innerText = `X`;
+    fermeCroix.classList.add("fa-solid");
+    fermeCroix.classList.add("fa-xmark");
 
     const photosModal = document.createElement("div");
     photosModal.id ="photosModal";

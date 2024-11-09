@@ -56,3 +56,17 @@ function Modifier (){
     }
 
 }
+
+/*Fonction bouton couleur filtre*/
+function CouleurBouton (pressbouton) {
+    const Boutons = document.querySelectorAll("button");
+    for (let i=0; i<Boutons.length; i++){
+        if (Boutons[i].innerText === pressbouton.innerText){
+            Boutons[i].style.backgroundColor = "#1D6154";
+            Boutons[i].style.color = "#FFFFFF";
+        }else{
+            Boutons[i].style.backgroundColor = "#FFFFFF";
+            Boutons[i].style.color = "#1D6154";
+        }
+    }
+}
