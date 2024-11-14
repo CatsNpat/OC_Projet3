@@ -16,7 +16,7 @@ function genModal(affiche) {
         boiteImage.id = "boiteImage_"+ affiche[i].id;
         const lienSuppr = document.createElement("button");
         lienSuppr.classList.add("boiteSuppr");
-        lienSuppr.addEventListener("click", () => deletePhoto(affiche[i].id));
+        lienSuppr.addEventListener("click", () => deletePhoto(affiche[i].id)); /* fonction présente ligne 37, permet la suppression d'une photo en cliquant sur une icône poubelle*/
 
         const icontrash = document.createElement("i");
         icontrash.classList.add("fa-solid");
@@ -154,7 +154,7 @@ function modalAjoutPhoto() {
     CategorieUne.attributes = "selected";
 
 
-    cat(Categorie);
+    cat(Categorie); /* foction présente ligne 59, permet de générer la liste déroulante de choix de catégorie*/
 
     const boiteB = document.createElement("div");
     boiteB.classList.add("boiteB");
@@ -295,7 +295,7 @@ function CreaModal() {
 
     titreModal.appendChild(fermeCroix);
 
-    sde()
+    sde() /* fonction présente ligne 4, permet de générer l'affichage des photos dans la modale*/
 
     const boiteAjoutPhoto = document.createElement("div");
     boiteAjoutPhoto.classList.add("boiteAjoutPhoto");
@@ -310,17 +310,17 @@ function CreaModal() {
     gju.appendChild(photosModal);
     gju.appendChild(boiteAjoutPhoto);
 
-    const reponFaux = document.createElement("p");
+    const reponFaux = document.createElement("p"); /* permet d'afficher les messages en cas d'erreur de suppression de photo, ligne 37*/
     reponFaux.id = "reponFaux";
     gju.appendChild(reponFaux);
 
-    fermeCroix.addEventListener("click",() => {
+    fermeCroix.addEventListener("click",() => {  /*permet de fermer la modale en cliquant sur la croix*/
         const mld = document.querySelector("#modal");
         mld.style.display = "none";
         gju.innerHTML ="";
     })
 
-    document.getElementById("modal").addEventListener("click",(event) => {
+    document.getElementById("modal").addEventListener("click",(event) => {  /*permet de fermer la modale d'un clic sur l'écran en dehors de la modale*/
         if (event.target === document.getElementById("modal")){
         const mld = document.querySelector("#modal");
         mld.style.display = "none";
@@ -329,7 +329,7 @@ function CreaModal() {
 
     document.querySelector(".ajoutPhotoModal").addEventListener("click",() => {
         gju.innerHTML = "";
-        modalAjoutPhoto();
+        modalAjoutPhoto(); /*fonction présente ligne 70, permet d'afficher la deuxième partie de la modale, l'ajout photo*/
 
     })
 }

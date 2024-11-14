@@ -26,9 +26,11 @@ connexion.addEventListener("click", async () =>{
                     }
                 }else {
                     repo = await repo.json();
-                    window.sessionStorage.setItem("token",`${repo.token}`);
+                    window.sessionStorage.setItem("token",`${repo.token}`); /* permet de stocker la clé dans le sessionStorage*/
                     location.assign("index.html")
                 }
             });
 })
+
+/*modifs une fois connectée, script.js, ligne 69.*/
 

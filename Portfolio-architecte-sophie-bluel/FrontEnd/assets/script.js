@@ -19,7 +19,7 @@ placeMenu.appendChild(btnfilterH);
 
 
 
-homePage()
+homePage() /*fonction présente dans la partie fonctions.js, permet d'afficher la page d'accueil*/
 
 /*partie boutons filtre*/
 
@@ -30,8 +30,8 @@ btnfilterO.addEventListener("click", async () =>{
         return x.category.id ===1;
     })
 
-    generer(objet)
-    CouleurBouton(btnfilterO)
+    generer(objet) /* fonction présente dans fonctions.js, permet d'afficher la page d'accueil filtrée*/
+    CouleurBouton(btnfilterO) /* fonction présente dans fonctions.js, ligne 61, permet de colorer les boutons filtres en fonction du choix*/
 
 })
 
@@ -73,12 +73,12 @@ let Logue = window.sessionStorage.getItem(`token`);
 if (Logue != null){
     document.querySelector(".login").innerText = `logout`;
     document.querySelector(".placemenu").style.visibility = "hidden";
-    Modifier();
+    Modifier(); /* fonction présente dans fonctions.js, ligne 29, permet d'afficher le bouton modifier*/
 
     document.getElementById("btnModifier").addEventListener("click", ()=> {
         const mld = document.querySelector("#modal");
         mld.style.display = null;
-        CreaModal();
+        CreaModal(); /* fonction présente dans modale.js, ligne 279, permet d'afficher la modale*/
      })
 
 }
