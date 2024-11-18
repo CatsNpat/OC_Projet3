@@ -210,7 +210,7 @@ function modalAjoutPhoto() {
         if ((imagePlus.files[0].type !== "image/jpeg" && imagePlus.files[0].type !== "image/png") || imagePlus.files[0].size > 4000000) {
             moi.innerText = `Erreur : format d'image invalide / la taille de l'image est supérieure à 4Mo`;
         }else{
-            if(!titreForm.value){
+            if(!titreForm.value.trim()){
                 moi.innerText = `Erreur : il manque un titre`;
             }else{
                 if(CategorieUne.selected){
@@ -230,7 +230,7 @@ function modalAjoutPhoto() {
                                         moi.innerText = `Erreur : utilisateur non autorisé`;
                                         break;
                                     case 500:
-                                        moi.innerText = `Erreur innatendue`;
+                                        moi.innerText = `Erreur inattendue`;
                                         break;
                                     default :
                                         moi.innerText = `Erreur inconnue`;
