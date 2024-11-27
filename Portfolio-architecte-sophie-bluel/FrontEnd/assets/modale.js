@@ -186,9 +186,27 @@ function modalAjoutPhoto() {
         iconeBoitePhotoPlus.style.display = "none";
         labelPhotoPlus.style.display = "none";
         Precision.style.display = "none";
-        buttonValider.style.backgroundColor = "#1D6154";
+        if(titreForm.value.trim()!="" && !CategorieUne.selected){
+            buttonValider.style.backgroundColor = "#1D6154";
+        }
+    })
 
+    titreForm.addEventListener("change", () =>{
+        if( photoPlus.files.length != 0 && titreForm.value.trim()!="" && !CategorieUne.selected){
+            buttonValider.style.backgroundColor = "#1D6154";
+        }
+        if(!titreForm.value.trim()){
+            buttonValider.style.backgroundColor = "#808080";
+        }
+    })
 
+    Categorie.addEventListener("change", () =>{
+        if( photoPlus.files.length != 0 && !CategorieUne.selected && titreForm.value.trim()!=""){
+            buttonValider.style.backgroundColor = "#1D6154";
+        }
+        if(CategorieUne.selected){
+            buttonValider.style.backgroundColor = "#808080";
+        }
     })
 
 
@@ -207,54 +225,59 @@ function modalAjoutPhoto() {
         formData.append("title", imageTitre);
         formData.append("category", imageCategorie);
 
-        if ((imagePlus.files[0].type !== "image/jpeg" && imagePlus.files[0].type !== "image/png") || imagePlus.files[0].size > 4000000) {
-            moi.innerText = `Erreur : format d'image invalide / la taille de l'image est supérieure à 4Mo`;
-        }else{
-            if(!titreForm.value.trim()){
-                moi.innerText = `Erreur : il manque un titre`;
+        if (imagePlus.files.length === 0){
+            moi.innerText = `Veuillez ajouter une photo`;
+        }
+        else{
+            if ((imagePlus.files[0].type !== "image/jpeg" && imagePlus.files[0].type !== "image/png") || imagePlus.files[0].size > 4000000) {
+                moi.innerText = `Erreur : format d'image invalide / la taille de l'image est supérieure à 4Mo`;
             }else{
-                if(CategorieUne.selected){
-                    moi.innerText = `Erreur : il faut choisir une catégorie`; 
+                if(!titreForm.value.trim()){
+                    moi.innerText = `Erreur : il manque un titre`;
                 }else{
-                    const reponse = await fetch ("http://localhost:5678/api/works",{
-                        method:"POST",
-                        headers:{"Authorization": `Bearer ${Logue}`},
-                        body: formData
-                        }).then( async function(repRep){
-                            if(!repRep.ok){
-                                switch (repRep.status) {
-                                    case 400:
-                                        moi.innerText = `Erreur : un des champs est manquant ou invalide`;
-                                        break;
-                                    case 401:
-                                        moi.innerText = `Erreur : utilisateur non autorisé`;
-                                        break;
-                                    case 500:
-                                        moi.innerText = `Erreur inattendue`;
-                                        break;
-                                    default :
-                                        moi.innerText = `Erreur inconnue`;
-                                        break;
+                    if(CategorieUne.selected){
+                        moi.innerText = `Erreur : il faut choisir une catégorie`; 
+                    }else{
+                        const reponse = await fetch ("http://localhost:5678/api/works",{
+                            method:"POST",
+                            headers:{"Authorization": `Bearer ${Logue}`},
+                            body: formData
+                            }).then( async function(repRep){
+                                if(!repRep.ok){
+                                    switch (repRep.status) {
+                                        case 400:
+                                            moi.innerText = `Erreur : un des champs est manquant ou invalide`;
+                                            break;
+                                        case 401:
+                                            moi.innerText = `Erreur : utilisateur non autorisé`;
+                                            break;
+                                        case 500:
+                                            moi.innerText = `Erreur inattendue`;
+                                            break;
+                                        default :
+                                            moi.innerText = `Erreur inconnue`;
+                                            break;
+                                    }
+                                    
+                                }else{
+                                    const mld = document.querySelector("#modal");
+                                    mld.style.display = "none";
+                                    hki.innerHTML ="";
+                                    const photoJson = await repRep.json();
+                                    const creaElement = document.createElement("figure");
+                                    creaElement.id = "creaElement_"+ photoJson.id;
+                                    const imageElement = document.createElement("img");
+                                    imageElement.src = photoJson.imageUrl;
+                                    const titreElement = document.createElement("figcaption");
+                                    titreElement.innerText = photoJson.title;
+                        
+                                    creaElement.appendChild(imageElement);
+                                    creaElement.appendChild(titreElement);
+                        
+                                    document.querySelector(".gallery").appendChild(creaElement);
                                 }
-                                
-                            }else{
-                                const mld = document.querySelector("#modal");
-                                mld.style.display = "none";
-                                hki.innerHTML ="";
-                                const photoJson = await repRep.json();
-                                const creaElement = document.createElement("figure");
-                                creaElement.id = "creaElement_"+ photoJson.id;
-                                const imageElement = document.createElement("img");
-                                imageElement.src = photoJson.imageUrl;
-                                const titreElement = document.createElement("figcaption");
-                                titreElement.innerText = photoJson.title;
-                    
-                                creaElement.appendChild(imageElement);
-                                creaElement.appendChild(titreElement);
-                    
-                                document.querySelector(".gallery").appendChild(creaElement);
-                            }
-                        });
+                            });
+                    }
                 }
             }
         }

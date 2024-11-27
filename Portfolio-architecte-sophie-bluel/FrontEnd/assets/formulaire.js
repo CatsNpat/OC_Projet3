@@ -22,8 +22,6 @@ connexion.addEventListener("click", async () =>{
                         if(!repo.ok){
                             switch (repo.status) {
                                 case 401:
-                                    messageC.innerText =`Il y a une erreur : identifiant ou mot de passe incorrect`;
-                                    break;
                                 case 404:
                                     messageC.innerText =`Il y a une erreur : identifiant ou mot de passe incorrect`;
                                     break;
